@@ -1,7 +1,7 @@
 import app from "./server.js";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
-import gymnasesDAO from "./dao/gymnaseDAO.js";
+import gymnasesDAO from "./dao/gymnasesDAO.js";
 
 dotenv.config();
 const MongoClient = mongodb.MongoClient;
