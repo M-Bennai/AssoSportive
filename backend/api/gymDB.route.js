@@ -1,5 +1,5 @@
 import express from "express";
-import GymnaseCtrl from "./gymnases.controller.js"
+import GymnaseCtrl from "./gymnases.controller.js";
 
 const router = express.Router();
 
