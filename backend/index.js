@@ -16,6 +16,7 @@ MongoClient.connect(process.env.GYM_DB_URI, {
     process.exit(1);
   })
   .then(async (client) => {
+    await gymnasesDAO.injectDB(client);
     app.listen(port, () => {
       console.log(`listening on port ${port}`);
     });
