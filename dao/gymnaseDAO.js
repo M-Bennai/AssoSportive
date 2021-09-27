@@ -7,6 +7,7 @@ export default class gymnasesDAO {
     }
     try {
       gymnases = await conn.db(process.env.GYM_NS).collection("gymnases");
+      console.log("connection gymnase");
     } catch (e) {
       `Unable to etablish a collection`;
     }

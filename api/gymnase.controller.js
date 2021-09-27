@@ -29,6 +29,6 @@ export default class GymnaseController {
       entries_per_page: gymnasesPerPage,
       total_results: totalNumGymnases,
     };
-    res.json(response);
+    // res.json(response);
   }
 }
