@@ -1,6 +1,6 @@
 import gymnasesDAO from "../dao/gymnaseDAO.js";
 
-export default class GymnasesController {
+export default class GymnaseController {
   static async apiGetGymnases(req, res, next) {
     const gymnasesPerPage = req.query.gymnasesPerPage
       ? parseInt(req.query.gymnasesPerPage, 10)
