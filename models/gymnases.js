@@ -2,18 +2,18 @@ module.exports = (mongoose) => {
   const Gymnases = mongoose.model(
     "gymnases",
     mongoose.Schema({
-      IdGymnase: Number,
-      NomGymnase: String,
-      Adresse: String,
-      Ville: String,
-      Surface: Number,
+      IdGymnase: { type: Number, required: true },
+      NomGymnase: { type: String, required: true },
+      Adresse: { type: String, required: true },
+      Ville: { type: String, required: true },
+      Surface: { type: Number, required: true },
       Seances: [
         {
-          IdSportifEntraineur: Number,
-          Jour: String,
-          Horaire: Number,
-          Duree: Number,
-          Libelle: String,
+          IdSportifEntraineur: { type: Number, required: false },
+          Jour: { type: String, required: false },
+          Horaire: { type: Number, required: false },
+          Duree: { type: Number, required: false },
+          Libelle: { type: String, required: false },
         },
       ],
     })

@@ -17,5 +17,6 @@ module.exports = (app) => {
   // Update a GYmnase by id
   router.put("/updateById/:id", gymnases.update);
 
+  //test
   app.use("/api/gymnases", router);
 };
