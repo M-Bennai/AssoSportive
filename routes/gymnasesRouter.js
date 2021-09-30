@@ -8,14 +8,17 @@ module.exports = (app) => {
   // Retrieve all Gymnases
   router.get("/allGym", gymnases.findAll);
 
+  // Retrieve a single Gymnase with id
+  router.get("/oneGym/:id", gymnases.findOne);
+
   // Create new Gymnase
   router.post("/postGym", gymnases.create);
 
   // Delete a Gymnase with id
   router.delete("/deleteById/:id", gymnases.delete);
 
-  // Update a GYmnase by id
-  router.put("/updateById/:id", gymnases.update);
+  // Update a Gymnase by id
+  router.put("/updateGymnase/:id", gymnases.update);
 
   //test
   app.use("/api/gymnases", router);

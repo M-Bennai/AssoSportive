@@ -1,22 +1,24 @@
 const db = require("../models");
-const Gymnases = db.gymnases;
+const Sportifs = db.sportifs;
 
+// get all by id
 exports.findAll = (req, res) => {
-  Gymnases.find()
+  Sportifs.find()
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occured while retrieving gymnases.",
+        message: err.message || "Some error occured while retrieving sportifs.",
       });
     });
 };
 
+// get element by id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Gymnases.findById(id)
+  Sportifs.findById(id)
     .then((data) => {
       if (!data)
         res.status(404).send({ message: "Not found Gymnase with id " + id });
@@ -31,32 +33,28 @@ exports.findOne = (req, res) => {
 
 exports.create = (req, res) => {
   //validate request
-  if (!req.body.NomGymnase) {
+  if (!req.body.Nom) {
     res.status(400).send({ message: "Content can not be empty" });
     return;
   }
 
-  // Create a gymnase
-  const gymnase = new Gymnases({
-    IdGymnase: req.body.IdGymnase,
-    NomGymnase: req.body.NomGymnase,
-    Adresse: req.body.Adresse,
-    Ville: req.body.Ville,
-    Surface: req.body.Surface,
-    Seances: [
-      {
-        IdSportifEntraineur: req.body.IdSportifEntraineur,
-        Jour: req.body.Jour,
-        Horaire: req.body.Horaire,
-        Duree: req.body.Duree,
-        Libelle: req.body.Libelle,
-      },
-    ],
+  // Create a sportifs
+  const sportif = new Sportifs({
+    IdSportif: req.body.IdSportif,
+    Nom: req.body.Nom,
+    Prenom: req.body.Prenom,
+    Sexe: req.body.Sexe,
+    Age: req.body.Age,
+    Sports: {
+      Jouer: [req.body.Jouer],
+      Arbitrer: [req.body.Arbitrer],
+      Entrainer: [req.body.Entrainer],
+    },
   });
 
-  // Save gmynase in database
-  gymnase
-    .save(gymnase)
+  // Save sportif in database
+  sportif
+    .save(sportif)
     .then((data) => {
       res.send(data);
     })
@@ -67,25 +65,25 @@ exports.create = (req, res) => {
     });
 };
 
-// delete gymnase by id
+// delete sportif by id
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Gymnases.findByIdAndRemove(id)
+  Sportifs.findByIdAndRemove(id)
     .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot delete Gymnase with id=${id}. Maybe Gymnase was not found!`,
+          message: `Cannot delete Sportif with id=${id}. Maybe Sportif was not found!`,
         });
       } else {
         res.send({
-          message: "Gymnase was deleted successfully!",
+          message: "Sportif was deleted successfully!",
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Gymnase with id=" + id,
+        message: "Could not delete Sportif with id=" + id,
       });
     });
 };
@@ -100,19 +98,19 @@ exports.update = (req, res) => {
   }
   const id = req.params.id;
 
-  Gymnases.findByIdAndUpdate(id, req.body, {
+  Sportifs.findByIdAndUpdate(id, req.body, {
     useFindAndModify: false,
   })
     .then((data) => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot update Gymnase with id=${id}. Maybe Gymnase was not found!`,
+          message: `Cannot update Sportifs with id=${id}. Maybe Sportifs was not found!`,
         });
-      } else res.send({ message: "Gymnase was updated successfully!" });
+      } else res.send({ message: "Sportifs was updated successfully!" });
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error updating Gymnase with id=" + id,
+        message: "Error updating Sportifs with id=" + id,
       });
     });
 };
