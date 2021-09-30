@@ -4,7 +4,7 @@ module.exports = (app) => {
 
   var router = require("express").Router();
 
-  //test
+  //Update "Seances" array in gymnase
   router.put("/updateSeanceById/:id", gymnases.updateSeance);
   app.use("/api/seances", router);
 };
