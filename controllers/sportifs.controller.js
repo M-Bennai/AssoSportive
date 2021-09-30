@@ -38,7 +38,7 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a gymnase
+  // Create a sportifs
   const sportif = new Sportifs({
     IdSportif: req.body.IdSportif,
     Nom: req.body.Nom,
@@ -46,9 +46,9 @@ exports.create = (req, res) => {
     Sexe: req.body.Sexe,
     Age: req.body.Age,
     Sports: {
-      Jouer: [],
-      Arbitrer: [],
-      Entrainer: [],
+      Jouer: [req.body.Jouer],
+      Arbitrer: [req.body.Arbitrer],
+      Entrainer: [req.body.Entrainer],
     },
   });
 
