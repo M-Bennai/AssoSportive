@@ -18,7 +18,7 @@ module.exports = (app) => {
   router.delete("/deleteById/:id", gymnases.delete);
 
   // Update a Gymnase by id
-  router.put("/updateById/:id", gymnases.update);
+  router.put("/updateGymnase/:id", gymnases.update);
 
   //test
   app.use("/api/gymnases", router);
