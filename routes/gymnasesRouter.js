@@ -20,6 +20,9 @@ module.exports = (app) => {
   // Update a Gymnase by id
   router.put("/updateGymnase/:id", gymnases.update);
 
+  //find by ville
+  router.get("/findByVille/:Ville", gymnases.find);
+
   //test
   app.use("/api/gymnases", router);
 };

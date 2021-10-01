@@ -13,19 +13,33 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findOne = (req, res) => {
-  const id = req.params.id;
+exports.find = (req, res) => {
+  const ville = req.params.Ville;
+  const nomGym = req.params.NomGymnase;
+  // const nomGymnase = req.params.NomGymnase
 
-  Gymnases.findById(id)
+  Gymnases.find({ Ville: ville })
+    .then((data) => {
+      if (data)
+        if (!data) res.status(404).send({ message: "Not found Ville" + Ville });
+        else res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error retrieving Ville" + Ville });
+    });
+};
+
+exports.findOne = (req, res) => {
+  const idGymnase = req.params.id;
+
+  Gymnases.findById({ IdGymnase: idGymnase })
     .then((data) => {
       if (!data)
-        res.status(404).send({ message: "Not found Gymnase with id " + id });
+        res.status(404).send({ message: "Not found Gymnase with id " });
       else res.send(data);
     })
     .catch((err) => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving Gymnase with id=" + id });
+      res.status(500).send({ message: "Error retrieving Gymnase with id=" });
     });
 };
 
@@ -69,9 +83,10 @@ exports.create = (req, res) => {
 
 // delete gymnase by id
 exports.delete = (req, res) => {
-  const id = req.params.id;
+  const id = req.params.IdGymnase;
+  // const objectID = req.params.id;
 
-  Gymnases.findByIdAndRemove(id)
+  Gymnases.deleteOne({ IdGymnase: id })
     .then((data) => {
       if (!data) {
         res.status(404).send({
