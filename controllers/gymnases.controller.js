@@ -42,20 +42,20 @@ exports.search = async (req, res) => {
 // };
 
 exports.findOne = (req, res) => {
-  const idGymnase = req.params.id;
+  const IdGymnase = req.params.id;
 
-  Gymnases.findOne({ _id: idGymnase })
+  Gymnases.findOne({ IdGymnase: IdGymnase })
     .then((data) => {
+      console.log("req.params", req.params)
       if (!data)
         res
           .status(404)
-          .send({ message: "Not found Gymnase with " + idGymnase });
+          .send({ message: "Not found Gymnase with " + IdGymnase });
       else res.send(data);
     })
     .catch((err) => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving Gymnase with " + idGymnase });
+      console.error(err);
+      res.status(500).send({ message: `Error retrieving Gymnase with id=${IdGymnase}`});
     });
 };
 
@@ -68,20 +68,21 @@ exports.create = (req, res) => {
 
   // Create a gymnase
   const gymnase = new Gymnases({
-    IdGymnase: req.body.IdGymnase,
+    IdGymnase: Date.now(),
     NomGymnase: req.body.NomGymnase,
     Adresse: req.body.Adresse,
     Ville: req.body.Ville,
     Surface: req.body.Surface,
-    Seances: [
-      {
-        IdSportifEntraineur: req.body.IdSportifEntraineur,
-        Jour: req.body.Jour,
-        Horaire: req.body.Horaire,
-        Duree: req.body.Duree,
-        Libelle: req.body.Libelle,
-      },
-    ],
+    Seances: []
+    // Seances: [
+    //   {
+    //     IdSportifEntraineur: req.body.IdSportifEntraineur,
+    //     Jour: req.body.Jour,
+    //     Horaire: req.body.Horaire,
+    //     Duree: req.body.Duree,
+    //     Libelle: req.body.Libelle,
+    //   },
+    // ],
   });
 
   // Save gmynase in database
@@ -99,7 +100,7 @@ exports.create = (req, res) => {
 
 // delete gymnase by id
 exports.delete = (req, res) => {
-  const id = req.params.IdGymnase;
+  const id = req.params.id;
   // const objectID = req.params.id;
 
   Gymnases.deleteOne({ IdGymnase: id })
@@ -131,7 +132,7 @@ exports.update = (req, res) => {
   }
   const id = req.params.id;
 
-  Gymnases.findByIdAndUpdate(id, req.body, {
+  Gymnases.findOneAndUpdate({IdGymnase:id}, req.body, {
     useFindAndModify: false,
   })
     .then((data) => {
