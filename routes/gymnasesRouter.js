@@ -21,7 +21,7 @@ module.exports = (app) => {
   router.put("/updateGymnase/:id", gymnases.update);
 
   //find by ville
-  router.get("/findByVille/:Ville", gymnases.find);
+  router.get("/search", gymnases.search);
 
   //test
   app.use("/api/gymnases", router);

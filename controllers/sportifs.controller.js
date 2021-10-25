@@ -114,3 +114,15 @@ exports.update = (req, res) => {
       });
     });
 };
+
+exports.searchSportifs = async (req, res) => {
+  let query = {};
+  if (req.query.keyword) {
+    query.$or = [
+      { Nom: { $regex: req.query.keyword } },
+      { Prenom: { $regex: req.query.keyword } },
+    ];
+  }
+  let sport = await Sportifs.find(query);
+  return res.status(200).send({ message: "successfully fetched", data: sport });
+};

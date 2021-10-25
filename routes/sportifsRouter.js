@@ -19,5 +19,8 @@ module.exports = (app) => {
   //update by id sportif
   router.put("/updateSportif/:id", sportifs.update);
 
+  //search
+  router.get("/search/sportifs", sportifs.searchSportifs);
+
   app.use("/api/sportifs", router);
 };
