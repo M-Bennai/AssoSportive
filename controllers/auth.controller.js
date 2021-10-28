@@ -33,6 +33,7 @@ const register = (req, res, next) => {
 const login = (req, res, next) => {
   var username = req.body.username;
   var password = req.body.password;
+  console.log("loginAttempt", username, password)
   User.findOne({ $or: [{ email: username }] }).then((user) => {
     if (user) {
       bcrypt.compare(password, user.password, function (err, result) {

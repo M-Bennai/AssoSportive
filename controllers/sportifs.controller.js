@@ -18,7 +18,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Sportifs.findById(id)
+  Sportifs.findOne({IdSportif: id})
     .then((data) => {
       if (!data)
         res.status(404).send({ message: "Not found Gymnase with id " + id });
@@ -40,7 +40,7 @@ exports.create = (req, res) => {
 
   // Create a sportifs
   const sportif = new Sportifs({
-    IdSportif: req.body.IdSportif,
+    IdSportif: Date.now(),
     Nom: req.body.Nom,
     Prenom: req.body.Prenom,
     Sexe: req.body.Sexe,
@@ -69,7 +69,7 @@ exports.create = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Sportifs.findByIdAndRemove(id)
+  Sportifs.deleteOne({IdSportif: id})
     .then((data) => {
       if (!data) {
         res.status(404).send({
@@ -98,7 +98,10 @@ exports.update = (req, res) => {
   }
   const id = req.params.id;
 
-  Sportifs.findByIdAndUpdate(id, req.body, {
+  // Sportifs.findByIdAndUpdate(id, req.body, {
+  //   useFindAndModify: false,
+  // })
+  Sportifs.findOneAndUpdate({IdSportif:id}, req.body, {
     useFindAndModify: false,
   })
     .then((data) => {
